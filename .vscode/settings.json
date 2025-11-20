@@ -1,0 +1,18 @@
+{
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#1976d23c"
+  },
+  "workbench.iconTheme": "symbols",
+  "material-icon-theme.activeIconPack": "nest",
+  "symbols.files.associations": {
+    "app.module.ts": "nest",
+    "*.service.ts": "nest-service",
+    "*.controller.ts": "nest-controller",
+    "*.entity.ts": "nest",
+    "*.repository.ts": "nest",
+    "*.dto.ts": "nest",
+    "*.module.ts": "nest",
+    "*.guard.ts": "nest-guard",
+    "*.middleware.ts": "nest-middleware"
+  }
+}
