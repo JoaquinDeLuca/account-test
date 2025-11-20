@@ -37,13 +37,13 @@ También se agregaron tests unitarios sobre el dominio (`AccountDomain`) usando 
 
 - La función `updateBalance` (servicio) usa **optimistic locking** con un campo `version` para permitir múltiples actualizaciones concurrentes sin locks pesados en la base de datos. Cada operación lee la cuenta, calcula el nuevo saldo y solo actualiza si la versión coincide; si otro proceso modificó la cuenta primero, el `update` no afecta filas y se reintenta con backoff (delay calculado por intento). Esto garantiza consistencia sin estados intermedios inválidos.
 
-Las reglas de negocio como no permitir saldo negativo y normalizar el monto según el tipo de operación se delegan al dominio, manteniendo el servicio centrado en concurrencia y persistencia. Cada operación exitosa genera una transacción registrada para trazabilidad.
+- Las reglas de negocio como no permitir saldo negativo y normalizar el monto según el tipo de operación se delegan al dominio, manteniendo el servicio centrado en concurrencia y persistencia. Cada operación exitosa genera una transacción registrada para trazabilidad.
 
-Además, se definieron DTOs con validaciones (class-validator / pipes) para asegurar entradas correctas y evitar lógica defensiva dentro del servicio. Los endpoints están documentados con Swagger, lo que clarifica contratos, tipos y respuestas esperadas y ayuda a evitar deuda técnica futura.
+- Además, se definieron DTOs con validaciones (class-validator / pipes) para asegurar entradas correctas y evitar lógica defensiva dentro del servicio. Los endpoints están documentados con Swagger, lo que clarifica contratos, tipos y respuestas esperadas y ayuda a evitar deuda técnica futura.
 
 ## Retries y manejo de errores
 
-- Hasta **6 intentos** con backoff lineal + jitter (`attempt * 10ms + rand(0,20)`) para evitar choques de reintentos.
+- Hasta **6 intentos** con backoff (delay) + jitter para evitar choques de reintentos.
 - Errores expuestos:
   - `400 BadRequest`: DTO inválido o intento de sobregiro detectado en dominio.
   - `404 NotFound`: cuenta inexistente.
