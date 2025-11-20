@@ -70,3 +70,13 @@ También se agregaron tests unitarios sobre el dominio (`AccountDomain`) usando 
 - Tests:
   - Tests de dominio: `npm run test`
   - Test de concurrencia: `npx ts-node scripts/http-concurrency.ts`
+
+
+## Posibles Mejoras
+
+- Migrar a Postgres usando tipo `Decimal` para operaciones monetarias más precisas.
+- Usar `prisma.$transaction` para que la actualización de `Account` y la creación de `Transaction` sean atómicas (o se ejecutan ambas o ninguna).
+- Incluir métricas y logging estructurado (ej. tiempo de respuesta, tasa de conflictos, cantidad de retries) para observabilidad.
+- Automatizar pruebas de estrés/concurrencia en CI para detectar regresiones de performance o de consistencia.
+
+  
